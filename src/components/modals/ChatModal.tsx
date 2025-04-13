@@ -22,7 +22,7 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
 		setInputValue(''); // 清空输入框
 		// 添加自动回复
 		setTimeout(() => {
-			setMessages(prev => [...prev, { text: "好的，请稍后", isUser: false }]);
+			setMessages(prev => [...prev, { text: "好的，请稍候", isUser: false }]);
 		}, 700);
 	};
 
