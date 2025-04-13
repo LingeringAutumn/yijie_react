@@ -4,8 +4,14 @@ import './styles.css';
 const SmartPage = () => {
 	return (
 		<div className="flex h-screen bg-gray-100">
-			<div className="flex-1 bg-cover bg-center left-background" style={{ backgroundImage: "url('https://source.unsplash.com/random/1280x720/?home')" }}>
-				<div className="flex flex-col justify-center items-center h-full px-8 text-center text-white bg-black bg-opacity-25">
+			<div className="flex-1 bg-cover bg-center left-background relative" style={{ 
+				backgroundImage: "url('/images/smart_home_login_page_background.jpg')",
+				backgroundSize: 'cover',
+				backgroundPosition: 'center',
+				backgroundRepeat: 'no-repeat'
+			}}>
+				<div className="absolute inset-0" style={{ backgroundColor: 'rgba(194, 219, 194, 0.9)' }}></div>
+				<div className="flex flex-col justify-center items-center h-full px-8 text-center text-white relative">
 					{/* SmartHome 标题 */}
 					<h1 className="text-5xl font-bold mb-4 tracking-wide" style={{ color: "#1F2937", textShadow: "0 0 5px rgba(0, 0, 0, 0.3)" }}>
 						SmartHome
