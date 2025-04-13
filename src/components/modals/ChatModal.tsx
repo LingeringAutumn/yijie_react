@@ -12,8 +12,7 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
 
 	// 状态管理：聊天记录和输入框内容
 	const [messages, setMessages] = useState([
-		{ text: "请问有什么可以帮您？", isUser: false },
-		{ text: "空调打开26度。", isUser: true },
+		{ text: "请问有什么可以帮您？", isUser: false }
 	]);
 	const [inputValue, setInputValue] = useState('');
 
@@ -21,6 +20,16 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
 		if (inputValue.trim() === '') return; // 如果输入为空，不发送
 		setMessages([...messages, { text: inputValue, isUser: true }]);
 		setInputValue(''); // 清空输入框
+		// 添加自动回复
+		setTimeout(() => {
+			setMessages(prev => [...prev, { text: "好的，请稍后", isUser: false }]);
+		}, 700);
+	};
+
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === 'Enter') {
+			handleSend();
+		}
 	};
 
 	return (
@@ -54,6 +63,7 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
 							className="w-full h-[44px] pl-10 pr-4 rounded-lg bg-white border-none text-sm"
 							value={inputValue}
 							onChange={(e) => setInputValue(e.target.value)}
+							onKeyDown={handleKeyDown}
 						/>
 						<i className="fas fa-keyboard absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
 					</div>
