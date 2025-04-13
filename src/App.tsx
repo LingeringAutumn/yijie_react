@@ -21,7 +21,7 @@ const App: React.FC = () => {
 					<main className="flex-1 p-6">
 						{currentPage === 'home' && <MyHomePage />}
 						{currentPage === 'devices' && <DevicePage />}
-						{currentPage === 'login' && <LoginPage />}
+						{currentPage === 'login' && <LoginPage setCurrentPage={setCurrentPage} />}
 						{currentPage === 'analysis' && <AnalysisPage />}
 						{currentPage === 'smart' && <SmartPage />}
 						{currentPage === 'yijie' && <YijieMainPage />}

@@ -3,8 +3,20 @@ import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
 import Checkbox from "@/components/ui/checkbox";
 
-const LoginPage: React.FC = () => {
+interface LoginPageProps {
+	setCurrentPage: (page: 'home' | 'devices' | 'analysis' | 'history' | 'settings' | 'login' | 'smart' | 'yijie') => void;
+}
+
+const LoginPage: React.FC<LoginPageProps> = ({ setCurrentPage }) => {
 	const backgroundImage = 'https://ai-public.mastergo.com/ai/img_res/aa11ce87faf94db7f32b14695b14b604.jpg';
+
+	const handleLogin = () => {
+		// 这里可以添加登录验证逻辑
+		setTimeout(() => {
+			setCurrentPage('yijie'); // 0.5秒后跳转到主页面
+		}, 500);
+	};
+
 	return (
 		<div className="flex min-h-screen w-full">
 			{/* Left Section */}
@@ -59,7 +71,10 @@ const LoginPage: React.FC = () => {
 								记住密码
 							</label>
 						</div>
-						<Button className="w-full !rounded-button bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-xl py-8 transition-colors duration-200">
+						<Button 
+							onClick={handleLogin}
+							className="w-full !rounded-button bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-xl py-8 transition-colors duration-200"
+						>
 							开始使用
 						</Button>
 						<div className="flex items-center justify-between text-xl">
