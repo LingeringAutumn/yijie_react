@@ -38,7 +38,7 @@ const YijieMainPage: React.FC<YijieMainPageProps> = ({ setCurrentPage }) => {
 			setUserInput(""); // 清空输入框
 			// 添加自动回复
 			setTimeout(() => {
-				setMessages((prev) => [...prev, { text: "好的，正在生成智能家居界面，请稍后", isUser: false }]);
+				setMessages((prev) => [...prev, { text: "好的，正在生成智能家居界面，请稍候", isUser: false }]);
 				// 2秒后跳转到MyHomePage
 				setTimeout(() => {
 					setCurrentPage('home');
@@ -75,8 +75,9 @@ const YijieMainPage: React.FC<YijieMainPageProps> = ({ setCurrentPage }) => {
 								<PopoverTrigger isOpen={false} togglePopover={() => { }}>
 									<Avatar className="w-16 h-16 cursor-pointer">
 										<img
-											src="https://ai-public.mastergo.com/ai/img_res/af5dcdcab53701f2b44bcba3d645f12d.jpg"
+											src="/images/MrsLin_35_north.jpg"
 											alt="用户头像"
+											className="w-[120%] h-[120%] object-cover"
 										/>
 									</Avatar>
 								</PopoverTrigger>
@@ -194,8 +195,9 @@ const YijieMainPage: React.FC<YijieMainPageProps> = ({ setCurrentPage }) => {
 												{msg.isUser && (
 													<Avatar className="w-12 h-12">
 														<img
-															src="https://ai-public.mastergo.com/ai/img_res/af5dcdcab53701f2b44bcba3d645f12d.jpg"
+															src="/images/MrsLin_35_north.jpg"
 															alt="用户头像"
+															className="w-[120%] h-[120%] object-cover"
 														/>
 													</Avatar>
 												)}
