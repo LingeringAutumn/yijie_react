@@ -23,6 +23,8 @@ import ThermostatModal from "../components/modals/ThermostatModal";
 import MusicPlayerModal from "../components/modals/MusicPlayerModal";
 import SmartLockModal from "../components/modals/SmartLockModal";
 import CurtainModal from "../components/modals/CurtainModal";
+import HeatingModal from "../components/modals/HeatingModal";
+import FanModal from "../components/modals/FanModal";
 import {
 	DndContext,
 	closestCenter,
@@ -77,6 +79,18 @@ const DevicePage: React.FC = () => {
 	const [isSpeakerModalOpen, setIsSpeakerModalOpen] = useState(false);
 	const [isSmartLockModalOpen, setIsSmartLockModalOpen] = useState(false);
 	const [isCurtainModalOpen, setIsCurtainModalOpen] = useState(false);
+	const [isHeatingModalOpen, setIsHeatingModalOpen] = useState(false);
+	const [isFanModalOpen, setIsFanModalOpen] = useState(false);
+
+	// 新增地暖相关状态
+	const [selectedRoom, setSelectedRoom] = useState('livingRoom');
+	const [roomTemperatures, setRoomTemperatures] = useState({
+		livingRoom: 26,
+		bedroom: 25,
+		study: 24
+	});
+	// 修改 selectedTemp 为 number[] 类型
+	const [selectedTemp, setSelectedTemp] = useState<number[]>([22]);
 
 	const [draggingId, setDraggingId] = useState<string | null>(null);
 
@@ -96,6 +110,10 @@ const DevicePage: React.FC = () => {
 		} catch (error) {
 			console.error("Error saving devices:", error);
 		}
+	};
+
+	const setIsHeatingOn = (value: boolean) => {
+		setDevices({ ...devices, 地暖: value });
 	};
 
 	const handleDragStart = (event: DragStartEvent) => {
@@ -189,6 +207,12 @@ const DevicePage: React.FC = () => {
 												case "窗帘":
 													setIsCurtainModalOpen(true);
 													break;
+												case "地暖":
+													setIsHeatingModalOpen(true);
+													break;
+												case "电风扇":
+													setIsFanModalOpen(true);
+													break;
 												default:
 													console.log(`Open ${deviceName} Modal`);
 											}
@@ -240,6 +264,24 @@ const DevicePage: React.FC = () => {
 				onClose={() => setIsCurtainModalOpen(false)}
 				toggleCurtain={() => toggleDevice("窗帘")}
 				isCurtainOpen={devices.窗帘}
+			/>
+			<HeatingModal
+				isOpen={isHeatingModalOpen}
+				onClose={() => setIsHeatingModalOpen(false)}
+				toggleHeating={() => toggleDevice("地暖")}
+				isHeatingOn={devices.地暖}
+				selectedRoom={selectedRoom}
+				roomTemperatures={roomTemperatures}
+				selectedTemp={selectedTemp}
+				setIsHeatingOn={setIsHeatingOn}
+				setSelectedRoom={setSelectedRoom}
+				setSelectedTemp={setSelectedTemp}
+			/>
+			<FanModal
+				isOpen={isFanModalOpen}
+				onClose={() => setIsFanModalOpen(false)}
+				isFanOn={devices.电风扇}
+				toggleFan={(value) => toggleDevice("电风扇", value)}
 			/>
 		</div>
 	);
