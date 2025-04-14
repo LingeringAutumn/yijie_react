@@ -1,4 +1,3 @@
-// DevicePage.tsx
 "use client";
 import React, { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
@@ -24,6 +23,7 @@ import ThermostatModal from "../components/modals/ThermostatModal";
 import MusicPlayerModal from "../components/modals/MusicPlayerModal";
 import SmartLockModal from "../components/modals/SmartLockModal";
 import CurtainModal from "../components/modals/CurtainModal"; // 引入窗帘模块
+import HeatingModal from "../components/modals/HeatingModal"; // 引入地暖模态框
 
 const DevicePage: React.FC = () => {
 	const storedDevices = localStorage.getItem("devicesStatus");
@@ -51,6 +51,17 @@ const DevicePage: React.FC = () => {
 	const [isSpeakerModalOpen, setIsSpeakerModalOpen] = useState(false);
 	const [isSmartLockModalOpen, setIsSmartLockModalOpen] = useState(false);
 	const [isCurtainModalOpen, setIsCurtainModalOpen] = useState(false); // 添加窗帘模态框状态
+	const [isHeatingModalOpen, setIsHeatingModalOpen] = useState(false); // 添加地暖模态框状态
+
+	// 新增地暖相关状态
+	const [selectedRoom, setSelectedRoom] = useState('livingRoom');
+	const [roomTemperatures, setRoomTemperatures] = useState({
+		livingRoom: 26,
+		bedroom: 25,
+		study: 24
+	});
+	// 修改 selectedTemp 为 number[] 类型
+	const [selectedTemp, setSelectedTemp] = useState<number[]>([22]);
 
 	useEffect(() => {
 		localStorage.setItem("devicesStatus", JSON.stringify(devices));
@@ -67,6 +78,10 @@ const DevicePage: React.FC = () => {
 		} catch (error) {
 			console.error("Error saving devices:", error);
 		}
+	};
+
+	const setIsHeatingOn = (value: boolean) => {
+		setDevices({ ...devices, FloorHeating: value });
 	};
 
 	return (
@@ -114,7 +129,7 @@ const DevicePage: React.FC = () => {
 						name="地暖"
 						isChecked={devices.FloorHeating}
 						onToggle={() => toggleDevice("FloorHeating")}
-						onClick={() => console.log("Open Floor Heating Modal")}
+						onClick={() => setIsHeatingModalOpen(true)} // 点击时打开地暖模态框
 					/>
 					<DeviceControl
 						icon={faWind}
@@ -193,7 +208,19 @@ const DevicePage: React.FC = () => {
 				toggleCurtain={() => toggleDevice("Curtains")}
 				isCurtainOpen={devices.Curtains} // 传递当前窗帘状态
 			/>
+			<HeatingModal
+				isOpen={isHeatingModalOpen}
+				onClose={() => setIsHeatingModalOpen(false)}
+				toggleHeating={() => toggleDevice("FloorHeating")}
+				isHeatingOn={devices.FloorHeating}
+				selectedRoom={selectedRoom}
+				roomTemperatures={roomTemperatures}
+				selectedTemp={selectedTemp}
+				setIsHeatingOn={setIsHeatingOn}
+				setSelectedRoom={setSelectedRoom}
+				setSelectedTemp={setSelectedTemp}
+			/>
 		</div>
 	);
 };
-export default DevicePage;
+export default DevicePage;    
