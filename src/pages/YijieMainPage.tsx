@@ -47,16 +47,6 @@ const YijieMainPage: React.FC<YijieMainPageProps> = ({ setCurrentPage }) => {
 		}
 	};
 
-	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === "Enter") {
-			handleSend();
-		}
-	};
-
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setUserInput(e.target.value);
-	};
-
 	return (
 		<div className="bg-gradient-to-tr from-blue-100 via-white to-blue-100 min-h-screen w-full m-0">
 			<div className="p-6">
@@ -221,8 +211,10 @@ const YijieMainPage: React.FC<YijieMainPageProps> = ({ setCurrentPage }) => {
 												placeholder="请输入你想要的界面设计风格..."
 												type="text"
 												value={userInput}
-												onChange={handleChange}
-												onKeyDown={handleKeyDown}
+												onChange={(e) => setUserInput(e.target.value)}
+												onKeyDown={(e) => {
+													if (e.key === "Enter") handleSend();
+												}}
 											/>
 											<Button
 												className="!rounded-xl whitespace-nowrap bg-blue-500 hover:bg-blue-600 text-white absolute right-2 top-1/2 -translate-y-1/2 py-4 px-8 text-xl"

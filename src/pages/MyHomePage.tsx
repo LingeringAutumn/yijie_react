@@ -217,6 +217,7 @@ const MyHomePage: React.FC = () => {
 						isChecked={devices.TV}
 						onToggle={() => toggleDevice("TV")}
 						onClick={() => setIsTVModalOpen(true)}
+						isDragging={false}
 					/>
 					<DeviceControl
 						icon={faBox}
@@ -224,6 +225,7 @@ const MyHomePage: React.FC = () => {
 						isChecked={devices.Fridge}
 						onToggle={() => toggleDevice("Fridge")}
 						onClick={() => setIsFridgeModalOpen(true)}
+						isDragging={false}
 					/>
 					<DeviceControl
 						icon={faLightbulb}
@@ -231,6 +233,7 @@ const MyHomePage: React.FC = () => {
 						isChecked={devices.Light}
 						onToggle={() => toggleDevice("Light")}
 						onClick={() => setIsLightModalOpen(true)}
+						isDragging={false}
 					/>
 					<DeviceControl
 						icon={faWifi}
@@ -238,6 +241,7 @@ const MyHomePage: React.FC = () => {
 						isChecked={devices.Wifi}
 						onToggle={() => toggleDevice("Wifi")}
 						onClick={() => null}
+						isDragging={false}
 					/>
 					<DeviceControl
 						icon={faThermometerHalf}
@@ -245,6 +249,7 @@ const MyHomePage: React.FC = () => {
 						isChecked={devices.Thermostat}
 						onToggle={() => toggleDevice("Thermostat")}
 						onClick={() => setIsThermostatModalOpen(true)}
+						isDragging={false}
 					/>
 				</div>
 				<TVModal
