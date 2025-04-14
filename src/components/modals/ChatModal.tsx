@@ -40,7 +40,7 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
 					<i className="fas fa-times"></i>
 				</button>
 			</div>
-			<ScrollArea className="flex-1 pr-4 overflow-y-auto mb-6 max-h-[calc(100vh-180px)]">
+			<ScrollArea className="flex-1 pr-4 overflow-y-auto">
 				<div className="space-y-4">
 					{messages.map((message, index) => (
 						<div key={index} className={`flex ${message.isUser ? 'justify-end' : ''}`}>
@@ -54,13 +54,13 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
 					))}
 				</div>
 			</ScrollArea>
-			<div className="border-t border-gray-200 pt-2 pb-4 sticky bottom-0 bg-[#E0EBE0]">
+			<div className="border-t border-gray-200 pt-4">
 				<div className="flex gap-2">
 					<div className="relative flex-1">
 						<input
 							type="text"
 							placeholder="输入消息..."
-							className="w-full h-[44px] pl-10 pr-4 rounded-lg bg-white border-none text-sm focus:outline-none focus:ring-2 focus:ring-[#2D5A27]"
+							className="w-full h-[44px] pl-10 pr-4 rounded-lg bg-white border-none text-sm"
 							value={inputValue}
 							onChange={(e) => setInputValue(e.target.value)}
 							onKeyDown={handleKeyDown}
