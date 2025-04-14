@@ -22,8 +22,9 @@ import LightModal from "../components/modals/LightModal";
 import ThermostatModal from "../components/modals/ThermostatModal";
 import MusicPlayerModal from "../components/modals/MusicPlayerModal";
 import SmartLockModal from "../components/modals/SmartLockModal";
-import CurtainModal from "../components/modals/CurtainModal"; // 引入窗帘模块
-import HeatingModal from "../components/modals/HeatingModal"; // 引入地暖模态框
+import CurtainModal from "../components/modals/CurtainModal";
+import HeatingModal from "../components/modals/HeatingModal";
+import FanModal from "../components/modals/FanModal";
 
 const DevicePage: React.FC = () => {
 	const storedDevices = localStorage.getItem("devicesStatus");
@@ -50,8 +51,9 @@ const DevicePage: React.FC = () => {
 	const [isThermostatModalOpen, setIsThermostatModalOpen] = useState(false);
 	const [isSpeakerModalOpen, setIsSpeakerModalOpen] = useState(false);
 	const [isSmartLockModalOpen, setIsSmartLockModalOpen] = useState(false);
-	const [isCurtainModalOpen, setIsCurtainModalOpen] = useState(false); // 添加窗帘模态框状态
-	const [isHeatingModalOpen, setIsHeatingModalOpen] = useState(false); // 添加地暖模态框状态
+	const [isCurtainModalOpen, setIsCurtainModalOpen] = useState(false);
+	const [isHeatingModalOpen, setIsHeatingModalOpen] = useState(false);
+	const [isFanModalOpen, setIsFanModalOpen] = useState(false);
 
 	// 新增地暖相关状态
 	const [selectedRoom, setSelectedRoom] = useState('livingRoom');
@@ -129,14 +131,14 @@ const DevicePage: React.FC = () => {
 						name="地暖"
 						isChecked={devices.FloorHeating}
 						onToggle={() => toggleDevice("FloorHeating")}
-						onClick={() => setIsHeatingModalOpen(true)} // 点击时打开地暖模态框
+						onClick={() => setIsHeatingModalOpen(true)}
 					/>
 					<DeviceControl
 						icon={faWind}
 						name="窗帘"
 						isChecked={devices.Curtains}
 						onToggle={() => toggleDevice("Curtains")}
-						onClick={() => setIsCurtainModalOpen(true)} // 点击时打开窗帘模态框
+						onClick={() => setIsCurtainModalOpen(true)}
 					/>
 					<DeviceControl
 						icon={faUtensils}
@@ -157,7 +159,7 @@ const DevicePage: React.FC = () => {
 						name="电风扇"
 						isChecked={devices.Fan}
 						onToggle={() => toggleDevice("Fan")}
-						onClick={() => console.log("Open Fan Modal")}
+						onClick={() => setIsFanModalOpen(true)}
 					/>
 					<DeviceControl
 						icon={faLock}
@@ -206,7 +208,7 @@ const DevicePage: React.FC = () => {
 				isOpen={isCurtainModalOpen}
 				onClose={() => setIsCurtainModalOpen(false)}
 				toggleCurtain={() => toggleDevice("Curtains")}
-				isCurtainOpen={devices.Curtains} // 传递当前窗帘状态
+				isCurtainOpen={devices.Curtains}
 			/>
 			<HeatingModal
 				isOpen={isHeatingModalOpen}
@@ -220,7 +222,14 @@ const DevicePage: React.FC = () => {
 				setSelectedRoom={setSelectedRoom}
 				setSelectedTemp={setSelectedTemp}
 			/>
+			<FanModal
+				isOpen={isFanModalOpen}
+				onClose={() => setIsFanModalOpen(false)}
+				isFanOn={devices.Fan}
+				toggleFan={(value) => toggleDevice("Fan", value)}
+			/>
 		</div>
 	);
 };
-export default DevicePage;    
+
+export default DevicePage;
